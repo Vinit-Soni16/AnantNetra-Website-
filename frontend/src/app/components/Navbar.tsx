@@ -82,12 +82,12 @@ function ClientNavbar() {
                       <ul className="space-y-2">
                         <li>
                           <NavigationMenuLink asChild>
-                            <a href="#">IT Consultancy</a>
+                            <a href="/Services/IT-consult">IT Consultancy</a>
                           </NavigationMenuLink>
                         </li>
                         <li>
                           <NavigationMenuLink asChild>
-                            <a href="#">Business Consultancy</a>
+                           <a href="/Services/Busniessconsult">Business Consultancy</a>
                           </NavigationMenuLink>
                         </li>
                       </ul>
@@ -327,8 +327,8 @@ function ClientNavbar() {
             <div className="mt-3">
               <p className="font-semibold text-sm mb-1">Consultancy</p>
               <ul className="space-y-1 ml-2">
-                <li><a className="block py-1" href="#">IT Consultancy</a></li>
-                <li><a className="block py-1" href="#">Business Consultancy</a></li>
+                <li><a className="block py-1" href="/Services">IT Consultancy</a></li>
+    <li><a className="block py-1" href="/Services/Business-consultancy">Business Consultancy</a></li>
               </ul>
             </div>
 

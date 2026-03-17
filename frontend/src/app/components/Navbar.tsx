@@ -23,7 +23,7 @@ const ServicesMenu = memo(() => (
       <ul className="space-y-2 text-sm">
         <li>
           <NavigationMenuLink asChild>
-            <Link href="/Services/IT-consult" className="block p-2 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-md transition-colors">
+            <Link href="/Services/IT-consult" className="block p-2  rounded-md ">
               <strong className="block font-medium">IT Consultancy</strong>
               <span className="text-xs text-slate-500 dark:text-slate-400">Strategic planning & tech roadmaps</span>
             </Link>
@@ -31,7 +31,7 @@ const ServicesMenu = memo(() => (
         </li>
         <li>
           <NavigationMenuLink asChild>
-            <Link href="/Services/Busniessconsult" className="block p-2 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-md transition-colors">
+            <Link href="/Services/Busniessconsult" className="block p-2 rounded-md ">
               <strong className="block font-medium">Business Consultancy</strong>
               <span className="text-xs text-slate-500 dark:text-slate-400">Optimizing operations & growth</span>
             </Link>
@@ -39,7 +39,7 @@ const ServicesMenu = memo(() => (
         </li>
         <li>
           <NavigationMenuLink asChild>
-            <Link href="/Services/Cyber-security" className="block p-2 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-md transition-colors">
+            <Link href="/Services/Cyber-security" className="block p-2 rounded-md ">
               <strong className="block font-medium">Cyber Security</strong>
               <span className="text-xs text-slate-500 dark:text-slate-400">Protecting your digital assets</span>
             </Link>
@@ -58,14 +58,14 @@ const SolutionsMenu = memo(() => (
       <ul className="space-y-2 text-sm">
         <li>
           <NavigationMenuLink asChild>
-            <Link href="/#contact">Free Consultancy & Audit Call</Link>
+            <Link href="/contact">Free Consultancy & Audit Call</Link>
           </NavigationMenuLink>
         </li>
-        <li>
+        {/* <li>
           <NavigationMenuLink asChild>
             <Link href="/Services/Cyber-security">Cyber Security</Link>
           </NavigationMenuLink>
-        </li>
+        </li> */}
         <li>
           <NavigationMenuLink asChild>
             <Link href="/Services">IT Audit / Product / Service</Link>
@@ -200,7 +200,7 @@ const MobileMenu = memo(({ isOpen, onClose }: { isOpen: boolean; onClose: () => 
           {openSection === "solutions" && (
             <div className="pl-4 mt-2 space-y-1 ml-2">
               <Link className="block py-1" href="/Services" onClick={onClose}>Free Consultancy & Audit Call</Link>
-              <Link className="block py-1" href="/Services/Cyber-security" onClick={onClose}>Cyber Security</Link>
+              {/* <Link className="block py-1" href="/Services/Cyber-security" onClick={onClose}>Cyber Security</Link> */}
               <Link className="block py-1" href="/Services" onClick={onClose}>IT Audit / Product / Service</Link>
             </div>
           )}
@@ -270,7 +270,7 @@ const MobileMenu = memo(({ isOpen, onClose }: { isOpen: boolean; onClose: () => 
         </li>
 
         <li>
-          <Link href="/#contact" className="block w-full py-2 font-medium" onClick={onClose}>
+          <Link href="/contact" className="block w-full py-2 font-medium" onClick={onClose}>
             Contact Us
           </Link>
         </li>
@@ -284,6 +284,11 @@ function ClientNavbar() {
   const pathname = usePathname();
   const [mobileOpen, setMobileOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   // Listen to scroll with requestAnimationFrame for performance
   useEffect(() => {
@@ -314,19 +319,24 @@ function ClientNavbar() {
     setMobileOpen(false);
   }, []);
 
-  const headerClass = useMemo(() => {
-    return `fixed top-4 left-1/2 transform -translate-x-1/2 z-50 overflow-visible
-    transition-[width,background-color,backdrop-filter,box-shadow,padding] duration-500
+ const headerClass = useMemo(() => {
+  return `fixed top-0 left-0 right-0 z-50 overflow-visible
+    transition-[background-color,backdrop-filter,box-shadow,padding] duration-500
     ${scrolled
-        ? "max-w-5xl w-[95%] bg-white/60 dark:bg-zinc-900/60 backdrop-blur-sm shadow-white/5 shadow-lg rounded-full py-1"
-        : "w-full bg-background shadow-sm rounded-none top-0 py-3"
+        ? "w-full bg-white dark:bg-black backdrop-blur-none shadow-white/5 shadow-lg py-1"
+        : "w-full bg-background  shadow-sm py-3"
       }`;
-  }, [scrolled]);
+}, [scrolled]);
 
   const topBarClass = useMemo(() => {
     return `w-full max-w-7xl mx-auto hidden xl:flex justify-end items-center gap-4 px-6 py-2 text-sm font-bold tracking-wide transition-all duration-500 ${scrolled ? "h-0 opacity-0 overflow-hidden py-0" : "h-auto opacity-100"
       }`;
   }, [scrolled]);
+
+  if (!mounted) {
+    // Lightweight placeholder for fast initial render
+    return <header className="w-full bg-background shadow-sm py-3 min-h-[70px] fixed top-0 left-0 right-0 z-50 transition-all duration-500"></header>;
+  }
 
   if (pathname === "/incident-response") return null;
 
@@ -339,7 +349,7 @@ function ClientNavbar() {
         <Link href="/Services" className="bg-clip-text text-transparent bg-gradient-to-r from-[#fc4a82] via-purple-500 to-blue-600 hover:opacity-80 transition-opacity">
           Threat Advisory
         </Link>
-        <Link href="/#contact" className="bg-clip-text text-transparent bg-gradient-to-r from-[#fc4a82] via-purple-500 to-blue-600 animate-gradient-x hover:opacity-80 transition-opacity">
+        <Link href="/contact" className="bg-clip-text text-transparent bg-gradient-to-r from-[#fc4a82] via-purple-500 to-blue-600 animate-gradient-x hover:opacity-80 transition-opacity">
           Contact Us
         </Link>
       </div>
